@@ -1,4 +1,4 @@
-<?php
+ <?php
 require __DIR__ . '/includes/db.php';
 requireStudent();
 
@@ -24,13 +24,14 @@ $passed = (int) ($student['passed'] ?? 0);
         <div class="container nav-wrap">
             <div class="brand"><?php include __DIR__ . '/includes/logo.php'; ?> Cyber Awareness</div>
             <nav>
-                <a href="index.php">หน้าแรก</a>
-                <a href="dashboard.php" class="active">แดชบอร์ด</a>
-                <a href="quiz.php">แบบทดสอบ</a>
+                <a href="index.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-label">หน้าแรก</span></a>
+                <a href="dashboard.php" class="nav-item active"><span class="nav-icon" aria-hidden="true">📊</span><span class="nav-label">แดชบอร์ด</span></a>
+                <a href="quiz.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🧠</span><span class="nav-label">แบบทดสอบ</span></a>
+                <a href="survey.php" class="nav-item"><span class="nav-icon" aria-hidden="true">⭐</span><span class="nav-label">ประเมิน</span></a>
                 <?php if ($passed): ?>
-                    <a href="certificate.php">ใบประกาศนียบัตร</a>
+                    <a href="certificate.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🏅</span><span class="nav-label">ใบประกาศ</span></a>
                 <?php endif; ?>
-                <a href="logout.php">ออกจากระบบ</a>
+                <a href="logout.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🚪</span><span class="nav-label">ออกจากระบบ</span></a>
             </nav>
         </div>
     </header>
@@ -64,13 +65,9 @@ $passed = (int) ($student['passed'] ?? 0);
                 <a href="quiz.php" class="btn btn-secondary">เริ่มทำแบบทดสอบ</a>
             </article>
             <article class="info-card">
-                <h3>ใบประกาศนียบัตร</h3>
-                <p>นักศึกษาที่ผ่านคะแนนจะได้รับใบรับรองออนไลน์</p>
-                <?php if ($passed): ?>
-                    <a href="certificate.php" class="btn btn-primary">ดูใบประกาศ</a>
-                <?php else: ?>
-                    <span class="muted">ยังไม่ผ่านเกณฑ์</span>
-                <?php endif; ?>
+                <h3>ประเมินความพึงพอใจ</h3>
+                <p>ช่วยให้เราเข้าใจว่าคุณรู้สึกอย่างไรต่อเว็บไซต์และประสบการณ์การเรียนรู้</p>
+                <a href="survey.php" class="btn btn-primary">ทำแบบประเมิน</a>
             </article>
         </section>
 

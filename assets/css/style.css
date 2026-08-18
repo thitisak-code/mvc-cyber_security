@@ -112,7 +112,7 @@ p { color: var(--muted); margin: 0 0 8px; }
     margin: 0 auto 14px;
 }
 
-nav { display: flex; align-items: center; gap: 4px; }
+nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
 
 nav a {
     text-decoration: none;
@@ -121,14 +121,35 @@ nav a {
     font-weight: 500;
     padding: 8px 14px;
     border-radius: 999px;
-    transition: color .15s ease, background .15s ease;
+    transition: color .15s ease, background .15s ease, transform .15s ease;
 }
 
-nav a:hover { color: var(--text); background: rgba(255,255,255,0.04); }
+nav a:hover {
+    color: var(--text);
+    background: rgba(255,255,255,0.04);
+    transform: translateY(-1px);
+}
 
 nav a.active {
     color: var(--ink);
     background: var(--safe);
+}
+
+.nav-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.nav-label {
+    display: inline-block;
+}
+
+.nav-icon {
+    display: none;
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
 /* ---------- Badge / eyebrow ---------- */
@@ -451,6 +472,126 @@ tbody tr:last-child td { border-bottom: none; }
 .alert-error { background: rgba(255, 107, 111, 0.1); border-color: rgba(255, 107, 111, 0.3); color: var(--danger); }
 .alert-success { background: rgba(47, 224, 173, 0.1); border-color: rgba(47, 224, 173, 0.3); color: var(--safe); }
 .alert-warning { background: rgba(246, 185, 59, 0.1); border-color: rgba(246, 185, 59, 0.32); color: var(--signal); }
+
+/* ---------- Satisfaction survey ---------- */
+.survey-shell {
+    background: linear-gradient(180deg, rgba(22, 35, 58, 0.96), rgba(11, 19, 34, 0.98));
+    border: 1px solid rgba(47, 224, 173, 0.25);
+    box-shadow: 0 28px 60px -32px rgba(15, 23, 42, 0.8);
+}
+
+.survey-header {
+    margin-bottom: 28px;
+}
+
+.survey-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+.survey-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(47, 224, 173, 0.1);
+    border: 1px solid rgba(47, 224, 173, 0.25);
+    color: var(--safe);
+    font-size: 0.72rem;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.survey-form {
+    display: grid;
+    gap: 18px;
+    background: rgba(10, 17, 32, 0.7);
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.survey-form > label {
+    display: grid;
+    gap: 10px;
+    padding: 16px 18px;
+    border: 1px solid var(--line-soft);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.02);
+    color: var(--text);
+    font-weight: 600;
+}
+
+.rating-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.star-option {
+    position: relative;
+    display: block;
+}
+
+.star-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.star-option span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 52px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: rgba(18, 32, 58, 0.9);
+    color: var(--muted);
+    font-family: var(--display);
+    font-size: 0.96rem;
+    font-weight: 600;
+    transition: all 0.15s ease;
+}
+
+.star-option input:checked + span {
+    background: linear-gradient(135deg, rgba(246, 185, 59, 0.18), rgba(47, 224, 173, 0.16));
+    border-color: rgba(47, 224, 173, 0.45);
+    color: var(--text);
+    box-shadow: 0 0 0 3px rgba(47, 224, 173, 0.10);
+    transform: translateY(-1px);
+}
+
+.survey-form textarea,
+.survey-form select {
+    width: 100%;
+    background: rgba(14, 25, 46, 0.9);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: var(--body);
+    font-size: 0.95rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.survey-form textarea::placeholder { color: var(--muted-2); }
+
+.survey-form textarea:focus,
+.survey-form select:focus {
+    border-color: rgba(47, 224, 173, 0.7);
+    box-shadow: 0 0 0 3px rgba(47, 224, 173, 0.12);
+}
+
+.survey-form .btn {
+    justify-self: start;
+    min-width: 180px;
+}
 
 /* ---------- Lesson list (dashboard) ---------- */
 .lesson-box {
@@ -791,9 +932,102 @@ tbody tr:last-child td { border-bottom: none; }
 }
 
 @media (max-width: 600px) {
-    nav { gap: 0; }
-    nav a { padding: 8px 10px; font-size: 0.85rem; }
+    .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+    }
+
+    .nav-wrap {
+        height: auto;
+        padding: 10px 0 12px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .brand {
+        justify-content: center;
+        font-size: 0.92rem;
+        padding: 0 8px;
+    }
+
+    nav {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 8px;
+        justify-content: stretch;
+    }
+
+    nav a {
+        padding: 10px 6px;
+        min-height: 48px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line-soft);
+    }
+
+    .nav-item {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .nav-icon {
+        display: inline-block;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
     .panel, .auth-card, .certificate-card { padding: 22px; }
+    .hero-panel { padding: 22px 18px; }
+    .cta-row {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media print {
+    body {
+        background: #fff !important;
+        color: #111 !important;
+    }
+
+    .topbar,
+    nav,
+    .btn,
+    .print-btn,
+    .alert,
+    .panel-header,
+    .hero-panel,
+    .card-grid,
+    .cards-grid,
+    .feature-list,
+    .lesson-box {
+        display: none !important;
+    }
+
+    .certificate-page {
+        background: #fff !important;
+        padding: 0 !important;
+    }
+
+    .certificate-wrap,
+    .certificate-card {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border-color: #d4af37 !important;
+        padding: 30px 24px !important;
+    }
+
+    @page {
+        size: A4 landscape;
+        margin: 12mm;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {

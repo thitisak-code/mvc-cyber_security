@@ -37,6 +37,7 @@ if (!$student || (int) $student['score'] < 70) {
                 <div class="meter-fill" style="width: <?= max(0, min(100, (int) $student['score'])); ?>%"></div>
             </div>
             <p class="certificate-footer">Issued by Cyber Portal Academy · <?= htmlspecialchars(date('d M Y'), ENT_QUOTES, 'UTF-8'); ?></p>
+            <button class="btn btn-primary print-btn" type="button" onclick="window.print()">พิมพ์เป็น PDF</button>
         </div>
     </div>
 </body>

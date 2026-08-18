@@ -12,5 +12,16 @@ CREATE TABLE IF NOT EXISTS students (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE IF NOT EXISTS website_surveys (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NULL,
+    username VARCHAR(100) NOT NULL,
+    rating INT NOT NULL,
+    comment TEXT NULL,
+    recommend VARCHAR(50) NULL,
+    page VARCHAR(100) NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 INSERT INTO students (full_name, room, username, password, score, passed, created_at)
 VALUES ('Administrator', 'Admin', 'admin', '$2y$10$U6FoC7ct8sJmE7B5uRdRse7MZy5/1s3m8J3g5IhH2p9j9gdIOcX32', 100, 1, NOW());

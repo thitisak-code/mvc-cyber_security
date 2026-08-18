@@ -15,18 +15,20 @@ $user = currentUser();
         <div class="container nav-wrap">
             <div class="brand"><?php include __DIR__ . '/includes/logo.php'; ?> Cyber Awareness</div>
             <nav>
-                <a href="index.php" class="active">หน้าแรก</a>
-                <a href="#lessons">เนื้อหา</a>
+                <a href="index.php" class="nav-item active"><span class="nav-icon" aria-hidden="true">🏠</span><span class="nav-label">หน้าแรก</span></a>
+                <a href="#lessons" class="nav-item"><span class="nav-icon" aria-hidden="true">📚</span><span class="nav-label">เนื้อหา</span></a>
                 <?php if ($user): ?>
                     <?php if (($user['role'] ?? '') === 'admin'): ?>
-                        <a href="admin.php">Admin</a>
+                        <a href="admin.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🛡️</span><span class="nav-label">Admin</span></a>
                     <?php else: ?>
-                        <a href="dashboard.php">Dashboard</a>
+                        <a href="dashboard.php" class="nav-item"><span class="nav-icon" aria-hidden="true">📊</span><span class="nav-label">แดชบอร์ด</span></a>
                     <?php endif; ?>
-                    <a href="logout.php">ออกจากระบบ</a>
+                    <a href="survey.php" class="nav-item"><span class="nav-icon" aria-hidden="true">⭐</span><span class="nav-label">ประเมิน</span></a>
+                    <a href="logout.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🚪</span><span class="nav-label">ออกจากระบบ</span></a>
                 <?php else: ?>
-                    <a href="login.php">เข้าสู่ระบบ</a>
-                    <a href="register.php">สมัครสมาชิก</a>
+                    <a href="login.php" class="nav-item"><span class="nav-icon" aria-hidden="true">🔐</span><span class="nav-label">เข้าสู่ระบบ</span></a>
+                    <a href="register.php" class="nav-item"><span class="nav-icon" aria-hidden="true">✍️</span><span class="nav-label">สมัครสมาชิก</span></a>
+                    <a href="survey.php" class="nav-item"><span class="nav-icon" aria-hidden="true">⭐</span><span class="nav-label">ประเมิน</span></a>
                 <?php endif; ?>
             </nav>
         </div>
@@ -46,11 +48,13 @@ $user = currentUser();
                             <?php else: ?>
                                 <a href="dashboard.php" class="btn btn-primary">ไปที่แดชบอร์ดของฉัน</a>
                             <?php endif; ?>
+                            <a href="survey.php" class="btn btn-secondary">ประเมินความพึงพอใจ</a>
                         </div>
                     <?php else: ?>
                         <div class="cta-row">
                             <a href="register.php" class="btn btn-primary">สมัครสมาชิก</a>
                             <a href="login.php" class="btn btn-secondary">เข้าสู่ระบบ</a>
+                            <a href="survey.php" class="btn btn-secondary">ประเมินความพึงพอใจ</a>
                         </div>
                     <?php endif; ?>
                 </div>
@@ -71,16 +75,28 @@ $user = currentUser();
 
             <div class="cards-grid three">
                 <article class="info-card">
-                    <h3>1. Human Firewall</h3>
-                    <p>การเปลี่ยนบทบาทจากผู้ใช้งานทั่วไปไปสู่ "เกราะป้องกัน" ผ่าน Digital Literacy, การปกป้องข้อมูลส่วนตัว และการจัดการ Digital Footprint</p>
+                    <h3>1. Human Firewall & Digital Literacy</h3>
+                    <p>เรียนรู้ว่าการมีสติ การวิเคราะห์ข้อมูล และการดูแลร่องรอยดิจิทัลเป็นพื้นฐานของ Human Firewall ที่ช่วยปกป้องตนเองจากการถูกหลอกลวงได้จริง</p>
                 </article>
                 <article class="info-card">
                     <h3>2. พื้นที่สีเขียวและสีดำ</h3>
-                    <p>การรู้จักโซนปลอดภัยและโซนภัยคุกคาม รวมถึงการวิเคราะห์อาชญากรรมดิจิทัล เช่น Phishing, Call Center Scam, Fake App, Deepfake</p>
+                    <p>แยกความต่างระหว่างโซนปลอดภัยกับโซนภัยคุกคาม เช่น Phishing, Fake App, Call Center Scam, Deepfake และการหลอกให้ติดตั้งไฟล์ .apk</p>
                 </article>
                 <article class="info-card">
-                    <h3>3. MFA และการรับมือฉุกเฉิน</h3>
-                    <p>การใช้สิ่งที่รู้ สิ่งที่มี และสิ่งที่เป็น รวมถึงการทำ 8 ขั้นตอนรับมือฉุกเฉินเมื่อถูกโจมตีหรือข้อมูลรั่วไหล</p>
+                    <h3>3. MFA & Authentication</h3>
+                    <p>ทำความเข้าใจสิ่งที่รู้ สิ่งที่มี และสิ่งที่เป็น ใน MFA พร้อมเช็กลิสต์การตั้งค่าความปลอดภัยที่ควรใช้ทุกบัญชีสำคัญ</p>
+                </article>
+                <article class="info-card">
+                    <h3>4. การจัดการ Digital Footprint</h3>
+                    <p>รู้ว่า PII เช่น วันเกิด เลขบัตร ที่อยู่ หรือภาพเอกสารสำคัญไม่ควรถูกเปิดเผยสู่สาธารณะ เพราะอาจถูกใช้เป็นฐานโจมตีทาง Social Engineering</p>
+                </article>
+                <article class="info-card">
+                    <h3>5. การรับมือฉุกเฉิน</h3>
+                    <p>เรียนรู้ 8 ขั้นตอนรับมือฉุกเฉินหลังถูกเจาะระบบหรือหลอกให้ติดตั้งแอปปลอม พร้อมการติดต่อสายด่วน 1441 และ 1200</p>
+                </article>
+                <article class="info-card">
+                    <h3>6. ความปลอดภัยเว็บไซต์และ AI</h3>
+                    <p>เข้าใจมาตรฐาน WSS 1.0 และการตรวจจับความผิดปกติจาก Deepfake เพื่อปกป้องข้อมูลก่อนถูกหลอกหรือถูกแปลงข้อมูลอันตราย</p>
                 </article>
             </div>
         </section>
